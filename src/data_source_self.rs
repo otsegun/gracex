@@ -1,5 +1,6 @@
 use polars::frame::DataFrame;
 use polars::prelude::{Column, DataType::Float64, PolarsDataType, PolarsError};
+use polars::series::Series;
 
 use crate::data_sources::{DataError, OwnedColumnSource};
 
@@ -56,6 +57,27 @@ impl DataSourceSelf for DataFrame {
     }
 }
 
+impl DataSourceSelf for Series {
+    fn has_columns(&self, name: &str) -> bool {
+        let column_name = self.name();
+        column_name == name
+    }
+
+    fn n_rows(&self) -> usize {
+        self.len()
+    }
+
+    fn get_numeric_column(&self, name: &str) -> Result<&[f64], DataError> {
+        if self.dtype() == &Float64 {
+            return Err(DataError::TypeMismatch(format!(
+                "Column '{}' is not f64",
+                name
+            )));
+        } else {
+            self.f64()?.cont_slice().map_err(Into::into)
+        }
+    }
+}
 mod tests {
     use super::*; // Imports everything from the outer file
 
@@ -73,5 +95,10 @@ mod tests {
         let answer = borrowed_column.get_numeric_column("positive_ints").unwrap();
 
         assert_eq!(answer, &test_data_clone);
+
+        let number_rows = borrowed_column.n_rows();
+        assert_eq!(number_rows, test_data_clone.len());
+
+        assert!(borrowed_column.has_columns("positive_ints"));
     }
 }
