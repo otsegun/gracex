@@ -83,22 +83,32 @@ mod tests {
 
     #[test]
     // test data source owned for owned_column_source
-    fn test_data_source_borrowed_for_borrowed_column_source() {
+    fn test_data_source_self_for_owned_column_source() {
         let test_data: Vec<f64> = vec![1.0, 2.0, 3.0];
         // create clone to use for evaluation
         let test_data_clone = test_data.clone();
 
-        let borrowed_column = OwnedColumnSource {
+        let owned_column = OwnedColumnSource {
             name: "positive_ints".to_string(),
             data: test_data,
         };
-        let answer = borrowed_column.get_numeric_column("positive_ints").unwrap();
+        let numeric_column = owned_column.get_numeric_column("positive_ints").unwrap();
 
-        assert_eq!(answer, &test_data_clone);
+        assert_eq!(numeric_column, &test_data_clone);
 
-        let number_rows = borrowed_column.n_rows();
+        let number_rows = owned_column.n_rows();
         assert_eq!(number_rows, test_data_clone.len());
 
-        assert!(borrowed_column.has_columns("positive_ints"));
+        assert!(owned_column.has_columns("positive_ints"));
     }
+
+    // #[test]
+    // fn test_data_source_self_for_data_frame() {
+    //     todo!()
+    // }
+
+    // #[test]
+    // fn test_data_source_self_for_series() {
+    //     todo!()
+    // }
 }

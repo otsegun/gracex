@@ -42,8 +42,13 @@ mod tests {
             name: "positive_ints".to_string(),
             data: &test_data,
         };
-        let answer = borrowed_column.get_numeric_column("positive_ints").unwrap();
+        let numeric_column = borrowed_column.get_numeric_column("positive_ints").unwrap();
 
-        assert_eq!(answer, &test_data);
+        assert_eq!(numeric_column, &test_data);
+
+        let number_rows = borrowed_column.n_rows();
+        assert_eq!(number_rows, test_data.len());
+
+        assert!(borrowed_column.has_columns("positive_ints"));
     }
 }

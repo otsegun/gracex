@@ -49,10 +49,18 @@ mod tests {
             name: "positive_ints".to_string(),
             data: test_data.clone(),
         };
-        let answer = owned_data_column
+
+        // numeric column works
+        let numeric_column = owned_data_column
             .get_numeric_column("positive_ints")
             .unwrap();
+        assert_eq!(numeric_column, test_data);
 
-        assert_eq!(answer, test_data);
+        // number of row works
+        let number_rows = owned_data_column.n_rows();
+        assert_eq!(number_rows, test_data.len());
+
+        // has_columns works
+        assert!(owned_data_column.has_columns("positive_ints"));
     }
 }
