@@ -43,7 +43,7 @@ pub enum DrawCommand {
         stroke: Option<Stroke>,
     },
 
-    #[allow(dead_code)]  // Not yet implemented for MWE
+    #[allow(dead_code)] // Not yet implemented for MWE
     Text {
         position: Point,
         content: String,

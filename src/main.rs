@@ -1,3 +1,8 @@
+mod data_source_borrowed;
+mod data_source_owned;
+mod data_source_self;
+mod data_sources;
+
 mod primitives;
 mod renderer;
 
@@ -13,9 +18,19 @@ fn main() {
         DrawCommand::Circle {
             position: Point { x: 100.0, y: 100.0 },
             radius: 50.0,
-            fill: Some(Color { r: 255, g: 0, b: 0, a: 255 }),
+            fill: Some(Color {
+                r: 255,
+                g: 0,
+                b: 0,
+                a: 255,
+            }),
             stroke: Some(Stroke {
-                color: Some(Color { r: 0, g: 0, b: 0, a: 255 }),
+                color: Some(Color {
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                    a: 255,
+                }),
                 width: 2.0,
             }),
         },
@@ -24,7 +39,12 @@ fn main() {
             position: Point { x: 200.0, y: 50.0 },
             width: 100.0,
             height: 80.0,
-            fill: Some(Color { r: 0, g: 0, b: 255, a: 255 }),
+            fill: Some(Color {
+                r: 0,
+                g: 0,
+                b: 255,
+                a: 255,
+            }),
             stroke: None,
         },
         // Green triangle (polygon)
@@ -34,9 +54,19 @@ fn main() {
                 Point { x: 400.0, y: 50.0 },
                 Point { x: 450.0, y: 150.0 },
             ],
-            fill: Some(Color { r: 0, g: 255, b: 0, a: 200 }),
+            fill: Some(Color {
+                r: 0,
+                g: 255,
+                b: 0,
+                a: 200,
+            }),
             stroke: Some(Stroke {
-                color: Some(Color { r: 0, g: 128, b: 0, a: 255 }),
+                color: Some(Color {
+                    r: 0,
+                    g: 128,
+                    b: 0,
+                    a: 255,
+                }),
                 width: 3.0,
             }),
         },
@@ -45,7 +75,12 @@ fn main() {
             start: Point { x: 50.0, y: 200.0 },
             end: Point { x: 450.0, y: 200.0 },
             stroke: Some(Stroke {
-                color: Some(Color { r: 0, g: 0, b: 0, a: 255 }),
+                color: Some(Color {
+                    r: 0,
+                    g: 0,
+                    b: 0,
+                    a: 255,
+                }),
                 width: 4.0,
             }),
         },
