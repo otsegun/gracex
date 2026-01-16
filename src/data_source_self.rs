@@ -1,5 +1,5 @@
 use polars::frame::DataFrame;
-use polars::prelude::{Column, DataType::Float64, PolarsDataType, PolarsError};
+use polars::prelude::DataType::Float64;
 use polars::series::Series;
 
 use crate::data_sources::{DataError, OwnedColumnSource};
@@ -68,7 +68,7 @@ impl DataSourceSelf for Series {
     }
 
     fn get_numeric_column(&self, name: &str) -> Result<&[f64], DataError> {
-        if self.dtype() == &Float64 {
+        if self.dtype() != &Float64 {
             return Err(DataError::TypeMismatch(format!(
                 "Column '{}' is not f64",
                 name
